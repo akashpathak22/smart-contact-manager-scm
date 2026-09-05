@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="/utility/common :: parent(~{:: .container}, ~{:: #body}, ~{:: title} )">
+
+<head>
+  <title>Home - Contact Manager</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+
+  <div class="container mx-auto px-4 py-8 md:py-12 max-w-6xl">
+    
+    <div class="relative overflow-hidden bg-linear-to-br from-indigo-600 via-indigo-700 to-blue-800 rounded-3xl shadow-2xl p-8 md:p-16 text-center text-white mb-16 border border-indigo-500/20">
+      <div class="absolute -top-24 -left-24 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-pulse"></div>
+      <div class="absolute -bottom-24 -right-24 w-72 h-72 bg-indigo-400 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-pulse"></div>
+
+      <div class="relative z-10 max-w-2xl mx-auto">
+        <span class="inline-block py-1 px-3 rounded-full bg-indigo-500/30 text-indigo-100 text-xs font-semibold tracking-wider uppercase mb-4 border border-indigo-400/30">
+          Smart Contact Solution
+        </span>
+        <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 text-white">
+          Welcome to Contact Manager
+        </h1>
+        <p class="text-base md:text-lg text-indigo-100 leading-relaxed mb-8">
+          Manage all your contacts effortlessly, securely, and seamlessly in one centralized place.
+        </p>
+        <div>
+          <a th:if="${loggedInUser}" th:href="@{/user/profile}" class="inline-flex items-center justify-center px-8 py-4 text-base font-semibold rounded-xl text-indigo-700 bg-white hover:bg-slate-100 shadow-xl shadow-black/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white transition-all duration-200 transform hover:-translate-y-0.5">
+            Go to profile
+            <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+          </a>
+          <a th:unless="${loggedInUser}" th:href="@{/login}" class="inline-flex items-center justify-center px-8 py-4 text-base font-semibold rounded-xl text-indigo-700 bg-white hover:bg-slate-100 shadow-xl shadow-black/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white transition-all duration-200 transform hover:-translate-y-0.5">
+            Get Started
+            <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+          </a>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-12">
+      <div class="text-center max-w-xl mx-auto mb-12">
+        <h2 class="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight mb-2">Powerful Features</h2>
+        <p class="text-slate-600 text-sm md:text-base">Everything you need to keep your personal and professional network organized.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        
+        <div class="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl border border-slate-100 transition-all duration-300 transform hover:-translate-y-1 group">
+          <div class="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Easy Contact Management</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Add, edit, search, and organize your contacts seamlessly in a clean, user-friendly interface.</p>
+        </div>
+
+        <div class="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl border border-slate-100 transition-all duration-300 transform hover:-translate-y-1 group">
+          <div class="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Secure Storage</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Your data is safe and protected with robust encryption protocols and high-level security standards.</p>
+        </div>
+
+        <div class="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl border border-slate-100 transition-all duration-300 transform hover:-translate-y-1 group">
+          <div class="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">24/7 Access</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Access your contacts anytime, anywhere, across all devices seamlessly with cloud availability.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div id="body" class="bg-slate-900 text-slate-400 py-6 text-center text-sm border-t border-slate-800">
+    <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p>&copy; 2026 Contact Manager. All rights reserved.</p>
+      <div class="flex space-x-6 text-xs">
+        <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+        <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+        <a th:href="@{/login}" class="hover:text-white transition-colors">Login</a>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

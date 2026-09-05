@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Success</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-green-50 to-emerald-50 min-h-screen flex items-center justify-center px-4">
+  <div class="max-w-md w-full text-center">
+    <!-- Success Icon -->
+    <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-green-100">
+      <svg
+        class="h-10 w-10 text-green-600"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 13l4 4L19 7"
+        ></path>
+      </svg>
+    </div>
+
+    <!-- Message -->
+
+     <div class="pt-10 text-center">
+      <div th:replace="~{/utility/messages :: messagebox}"></div>
+    </div>
+
+    <h1 class="text-3xl font-bold text-gray-800 mt-6">Success!</h1>
+    <p class="text-gray-600 mt-2">
+      Your action was completed successfully. You can now proceed or return to the homepage.
+    </p>
+
+    <!-- CTA Buttons -->
+    <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+      <a
+        href="/login"
+        class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition"
+      >
+        login now
+      </a>
+      <a
+        href="/home"
+        class="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition"
+      >
+        go to home
+
+
+
+
+
+
+
+
+
+
+
+
+      </a>
+    </div>
+  </div>
+</body>
+</html>

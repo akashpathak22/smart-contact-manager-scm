@@ -1,0 +1,127 @@
+<div th:fragment="contactdetails">
+    <!-- Main Modal Background (Instant display, no animations) -->
+    <div id="view_contact_modal" tabindex="-1" aria-hidden="true"
+        class="hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-gray-900/60 backdrop-blur-xs">
+
+        <div class="relative p-4 w-full max-w-lg max-h-full">
+            <!-- Card Container -->
+            <div class="relative bg-white border border-gray-200 rounded-2xl shadow-2xl overflow-hidden">
+
+                <!-- Header / Profile Banner -->
+                <div class="relative bg-linear-to-r from-slate-900 to-slate-800 p-6 ">
+                    <!-- Close button -->
+                    <button type="button" onclick="closeContactModal()"
+                        class="absolute top-4 right-4 text-gray-400 bg-white/10 hover:bg-white/20 hover:text-red-500 rounded-full p-2 w-8 h-8 inline-flex justify-center items-center cursor-pointer">
+                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+
+                    <div class="flex items-center gap-4">
+                        <!-- Profile Image -->
+                        <img id="contactimg" 
+                             class="w-20 h-20 rounded-2xl object-cover bg-white border-2 border-white/20 shadow-md shrink-0" 
+                             src="" 
+                             alt="Profile Image">
+                        
+                        <div class="overflow-hidden flex items-center">
+                            <h3 id="contactname" class="text-2xl font-bold truncate"></h3>
+                            
+                            <span id="contactfavorite" class="text-2xl inline-flex items-center gap-1.5 px-2.5 py-0.5 mt-1   font-medium " >
+                             
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="p-6 space-y-4 text-gray-700 text-sm max-h-[60vh] overflow-y-auto">
+                    
+                    <!-- Contact Details Info Cards -->
+                    <div class="grid grid-cols-1 gap-2.5">
+                        
+                        <!-- Email -->
+                        <div class="flex items-center gap-3 bg-slate-50 border border-slate-100 p-3 rounded-xl">
+                            <div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-envelope text-xs"></i>
+                            </div>
+                            <div class="overflow-hidden">
+                                <span class="block text-[11px] font-semibold uppercase tracking-wider text-gray-400">Email</span>
+                                <span id="contactemail" class="font-medium text-gray-900 truncate block"></span>
+                            </div>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="flex items-center gap-3 bg-slate-50 border border-slate-100 p-3 rounded-xl">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-phone text-xs"></i>
+                            </div>
+                            <div>
+                                <span class="block text-[11px] font-semibold uppercase tracking-wider text-gray-400">Phone</span>
+                                <span id="contactphone" class="font-medium text-gray-900"></span>
+                            </div>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="flex items-center gap-3 bg-slate-50 border border-slate-100 p-3 rounded-xl">
+                            <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-location-dot text-xs"></i>
+                            </div>
+                            <div>
+                                <span class="block text-[11px] font-semibold uppercase tracking-wider text-gray-400">Address</span>
+                                <span id="contactaddress" class="font-medium text-gray-900"></span>
+                            </div>
+                        </div>
+
+                         <div class="flex items-center gap-3 bg-slate-50 border border-slate-100 p-3 rounded-xl">
+                            <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center shrink-0">
+                               <i class="fa-solid fa-circle-info"></i>>
+                            </div>
+                            <div>
+                                <span class="block text-[11px] font-semibold uppercase tracking-wider text-gray-400">About Contact</span>
+                                <span id="contactdescription" class="font-medium text-gray-900"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Description / Bio -->
+                    <div id="description_wrapper" class="hidden">
+                        <span class="block text-[11px] font-semibold uppercase tracking-wider text-gray-400 mb-1">About / Notes</span>
+                        <p id="contactdescription" class="p-3 bg-slate-50 border border-slate-100 rounded-xl text-gray-600 leading-relaxed text-xs"></p>
+                    </div>
+
+                    <!-- Social / Web Links -->
+                    <div>
+                        <span class="block text-[11px] font-semibold uppercase tracking-wider text-gray-400 mb-2">Connected Links</span>
+                        <div class="flex flex-wrap gap-2">
+                            <a id="contactinsta" href="#" target="_blank" class="hidden items-center gap-1.5 px-3 py-1.5 bg-pink-50 text-pink-700 hover:bg-pink-100 border border-pink-200/60 rounded-lg text-xs font-semibold">
+                                <i class="fa-brands fa-instagram"></i> Instagram
+                            </a>
+                            <a id="contactwebsite" href="#" target="_blank" class="hidden items-center gap-1.5 px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200/60 rounded-lg text-xs font-semibold">
+                                <i class="fa-solid fa-globe"></i> Website
+                            </a>
+                            <a id="contactlinkedin" href="#" target="_blank" class="hidden items-center gap-1.5 px-3 py-1.5 bg-sky-50 text-sky-700 hover:bg-sky-100 border border-sky-200/60 rounded-lg text-xs font-semibold">
+                                <i class="fa-brands fa-linkedin"></i> LinkedIn
+                            </a>
+                            <a id="contactx" href="#" target="_blank" class="hidden items-center gap-1.5 px-3 py-1.5 bg-gray-100 text-gray-800 hover:bg-gray-200 border border-gray-200 rounded-lg text-xs font-semibold">
+                                <i class="fa-brands fa-x-twitter"></i> X
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="flex items-center justify-end bg-gray-50 border-t border-gray-100 px-6 py-4">
+                    <button onclick="closeContactModal()" type="button"
+                        class="text-white bg-gray-900 hover:bg-black font-medium rounded-xl text-xs px-5 py-2.5 focus:outline-none cursor-pointer">
+                        Close
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

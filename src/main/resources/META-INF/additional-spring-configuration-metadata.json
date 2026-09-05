@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "cludinary.claud.name",
+    "type": "java.lang.String",
+    "description": "A description for 'cludinary.claud.name'"
+  },
+  {
+    "name": "cludinary.api.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'cludinary.api.secret'"
+  },
+  {
+    "name": "cludinary.api.key",
+    "type": "java.lang.String",
+    "description": "A description for 'cludinary.api.key'"
+  },
+  {
+    "name": "cloudinary.claud.name",
+    "type": "java.lang.String",
+    "description": "A description for 'cloudinary.claud.name'"
+  },
+  {
+    "name": "cloudinary.api.key",
+    "type": "java.lang.String",
+    "description": "A description for 'cloudinary.api.key'"
+  },
+  {
+    "name": "cloudinary.api.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'cloudinary.api.secret'"
+  }
+]}

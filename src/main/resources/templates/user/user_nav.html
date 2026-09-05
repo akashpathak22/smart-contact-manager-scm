@@ -1,0 +1,41 @@
+<header th:fragment="usernav" th:object="${loggedInUser}">
+  <nav class="flex items-center  justify-between ">
+    <!-- logo part -->
+    <div id="logo" class="flex gap-4 ">
+     <img class="w-8 h-8" th:src="@{/assest/address-book.png}" alt="Address Book">
+
+
+      <h4 class="text-2xl font-extrabold italic ">SCM</h4>
+    </div>
+    <!-- navigation links -->
+    <div class="">
+      <ul class="flex text-black  gap-5">
+        <li><a th:href="@{'/home'}">Home</a></li>
+        <li><a th:href="@{'/service'}">Service</a></li>
+        <li><a th:href="@{'/user/contact'}">Contacts</a></li>
+        <li><a th:href="@{'/user/dashboard'}">Dashboard</a></li>
+      </ul>
+    </div>
+
+    <div class="btns">
+      </button>
+      <button class="px-3 py-1 bg-blue-500 text-white rounded  hover:bg-gray-800 ">
+        <a th:href="@{'/user/profile'}" th:text = "*{name}"> username </a>
+
+      </button>
+      <button class="px-3 py-1 bg-red-600 text-white rounded  hover:bg-gray-800 "> <a
+          th:href="@{'/do-logout'}">Logout</a></button>
+
+
+          <!-- THEME BUTTON -->
+      <!-- <button id="themeBtn"
+        class="px-3 text-center align-middle py-1 bg-gray-900 text-white rounded-full  hover:bg-gray-800 ">
+        <span class="material-symbols-outlined text-xs">routine</span>
+        Light
+      </button> -->
+
+
+    </div>
+
+  </nav>
+</header>

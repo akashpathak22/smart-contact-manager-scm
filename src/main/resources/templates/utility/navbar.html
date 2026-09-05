@@ -1,0 +1,40 @@
+<header th:fragment="navbar">
+  <nav class="flex items-center  justify-between ">
+    <!-- logo part -->
+    <div id="logo" class="flex gap-4 ">
+    
+           <img class="w-8 h-8" th:src="@{/assest/address-book.png}" alt="logo">
+
+      <h4 class="text-2xl font-extrabold italic ">SCM</h4>
+    </div>
+    <!-- navigation links -->
+    <div class="">
+      <ul class="flex text-black  gap-5">
+        <li><a th:href="@{'/home'}">Home</a></li>
+        <li><a th:href="@{'/service'}">Service</a></li>
+        <li><a th:href="@{'/home'}">Contacts</a></li>
+      </ul>
+    </div>
+
+    <div class="btns">
+
+      <button class="px-3 py-1 bg-gray-900 text-white rounded-full  hover:bg-gray-800 ">
+        <a th:href="@{'/register'}">Register</a>
+
+      </button>
+      <button class="px-3 py-1 bg-gray-900 text-white rounded-full  hover:bg-gray-800 "> <a
+          th:href="@{'/login'}">login</a></button>
+
+
+          <!-- THEME BUTTON -->
+      <!-- <button id="themeBtn"
+        class="px-3 text-center align-middle py-1 bg-gray-900 text-white rounded-full  hover:bg-gray-800 ">
+        <span class="material-symbols-outlined text-xs">routine</span>
+        Light
+      </button> -->
+
+
+    </div>
+
+  </nav>
+</header>

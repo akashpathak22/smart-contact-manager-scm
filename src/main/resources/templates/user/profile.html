@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{/utility/common :: parent (~{}, ~{:: .userProfile}, ~{ ::title}) }">
+
+<head>
+    <title th:text="${loggedInUser.name} + ' - Profile | SCM'">Profile</title>
+</head>
+
+<body>
+    <div class="userProfile flex min-h-screen bg-gray-50/50">
+        
+        <!-- Sidebar integration -->
+        <div th:if="${loggedInUser}">
+            <div th:replace="~{/user/sidebar :: sidebar }"></div>
+        </div>
+
+        <!-- Main Content Wrapper -->
+        <div class="m-auto w-full min-h-screen py-8 px-4 sm:px-6 lg:px-8 sm:pl-72">
+            <div class="max-w-4xl mx-auto space-y-6">
+
+                <!-- Page Header -->
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-4 border-b border-gray-200">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900 tracking-tight">User Profile</h1>
+                        <p class="text-sm text-gray-500 mt-1">Manage your account details, security flags, and preferences.</p>
+                    </div>
+
+         
+
+                    <div class="mt-4 sm:mt-0">
+                        <a th:href="@{'/user/profile/edit/' + ${userProfile.userId}}" 
+                           class="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-xl hover:bg-gray-800 transition shadow-sm hover:shadow">
+                            <i class="fa-solid fa-pen-to-square text-xs"></i>
+                            Edit Profile
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Main Profile Card -->
+                <div class="bg-white rounded-3xl border border-gray-200/80 shadow-sm overflow-hidden transition-all duration-300">
+                    
+                    <!-- Cover / Top Banner Accent -->
+    <!-- Cover / Top Banner Accent -->
+                    <div class="h-32 bg-gradient-to-r from-purple-900 via-purple-950 to-indigo-950 px-6 pt-6 relative">
+                        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent"></div>
+                    </div>
+
+                    <!-- Profile Info Section -->
+                    <div class="px-6 sm:px-10 pb-8 relative">
+                        
+                        <!-- Header Content: Details Left, Avatar Right -->
+                        <div class="flex flex-col sm:flex-row-reverse sm:items-end justify-between mb-8 gap-6">
+                            
+                            <!-- Profile Image Avatar (Overlapping banner using negative margin) -->
+                            <div class="relative shrink-0 flex justify-center sm:justify-end -mt-16 sm:-mt-20">
+                                <div class="relative p-1.5 bg-white rounded-full shadow-lg">
+                                    <img class="w-32 h-32 rounded-full object-cover bg-gray-100"
+                                         onerror="this.src='https://static.vecteezy.com/system/resources/previews/021/548/095/original/default-profile-picture-avatar-user-avatar-icon-person-icon-head-icon-profile-picture-icons-default-anonymous-user-male-and-female-businessman-photo-placeholder-social-network-avatar-portrait-free-vector.jpg'"
+                                         th:src="${loggedInUser.profileLink != null && !loggedInUser.profileLink.isEmpty()} ? ${loggedInUser.profileLink} : 'https://static.vecteezy.com/system/resources/previews/021/548/095/original/default-profile-picture-avatar-user-avatar-icon-person-icon-head-icon-profile-picture-icons-default-anonymous-user-male-and-female-businessman-photo-placeholder-social-network-avatar-portrait-free-vector.jpg'"
+                                         alt="Profile Avatar">
+                                    <!-- Online Status Ring Dot -->
+                                    <span class="absolute bottom-3 right-3 w-5 h-5 bg-emerald-500 border-4 border-white rounded-full" title="Active"></span>
+                                </div>
+                            </div>
+
+                            <!-- Name, Email & Auth Provider (Safely positioned on the white background) -->
+                            <div class="space-y-2 text-center sm:text-left pt-2">
+                                <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2.5">
+                                    <h2 class="text-2xl font-bold text-gray-900" th:text="${loggedInUser.name}">John Doe</h2>
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-100">
+                                        <i class="fa-solid fa-shield-halved text-[10px]"></i>
+                                        <span th:text="${loggedInUser.provider}">SELF</span>
+                                    </span>
+                                </div>
+                                <p class="text-sm font-medium text-gray-500 flex items-center justify-center sm:justify-start gap-2">
+                                    <i class="fa-regular fa-envelope text-gray-400"></i>
+                                    <span th:text="${loggedInUser.email}">john.doe@example.com</span>
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <!-- About Section -->
+                        <div class="mb-8 p-5 bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-2xl border border-gray-100/80 shadow-2xs">
+                            <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-info text-indigo-500"></i> About Bio
+                            </h3>
+                            <p class="text-sm text-gray-700 leading-relaxed font-normal" 
+                               th:text="${loggedInUser.about != null && !loggedInUser.about.isEmpty()} ? ${loggedInUser.about} : 'No bio information provided yet.'">
+                                Bio description goes here...
+                            </p>
+                        </div>
+
+                        <!-- Grid Details Layout -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                            
+                            <!-- Mobile Number -->
+                            <div class="flex items-center gap-4 p-4 rounded-2xl border border-gray-100 bg-white hover:border-indigo-100 hover:shadow-xs transition">
+                                <div class="p-3 bg-indigo-50 text-indigo-600 rounded-xl shrink-0">
+                                    <i class="fa-solid fa-phone text-base"></i>
+                                </div>
+                                <div class="overflow-hidden">
+                                    <span class="text-[11px] font-bold text-gray-400 uppercase tracking-wider block">Phone Number</span>
+                                    <span class="text-sm font-semibold text-gray-800 truncate block" th:text="${loggedInUser.mobile != null && !loggedInUser.mobile.isEmpty()} ? ${loggedInUser.mobile} : 'Not Provided'">+1 234 567 890</span>
+                                </div>
+                            </div>
+
+                            <!-- Account Status (Enabled) -->
+                            <div class="flex items-center gap-4 p-4 rounded-2xl border border-gray-100 bg-white hover:border-emerald-100 hover:shadow-xs transition">
+                                <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl shrink-0">
+                                    <i class="fa-solid fa-user-check text-base"></i>
+                                </div>
+                                <div class="overflow-hidden">
+                                    <span class="text-[11px] font-bold text-gray-400 uppercase tracking-wider block">Account Status</span>
+                                    <span class="inline-flex items-center gap-1.5 mt-0.5 px-2.5 py-0.5 rounded-full text-xs font-semibold"
+                                          th:classappend="${loggedInUser.enable} ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'">
+                                        <span class="w-1.5 h-1.5 rounded-full" th:classappend="${loggedInUser.enable} ? 'bg-emerald-500' : 'bg-red-500'"></span>
+                                        <span th:text="${loggedInUser.enable} ? 'Active / Enabled' : 'Disabled'">Active</span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Email Verification Flag -->
+                            <div class="flex items-center gap-4 p-4 rounded-2xl border border-gray-100 bg-white hover:border-blue-100 hover:shadow-xs transition">
+                                <div class="p-3 text-blue-600 bg-blue-50 rounded-xl shrink-0">
+                                    <i class="fa-solid fa-envelope-circle-check text-base"></i>
+                                </div>
+                                <div class="overflow-hidden">
+                                    <span class="text-[11px] font-bold text-gray-400 uppercase tracking-wider block">Email Verification</span>
+                                    <span class="inline-flex items-center gap-1.5 mt-0.5 px-2.5 py-0.5 rounded-full text-xs font-semibold"
+                                          th:classappend="${loggedInUser.emailVerified} ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-700'">
+                                        <span th:text="${loggedInUser.emailVerified} ? 'Verified' : 'Pending Verification'">Verified</span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Phone Verification Flag -->
+                            <div class="flex items-center gap-4 p-4 rounded-2xl border border-gray-100 bg-white hover:border-purple-100 hover:shadow-xs transition">
+                                <div class="p-3 text-purple-600 bg-purple-50 rounded-xl shrink-0">
+                                    <i class="fa-solid fa-square-phone text-base"></i>
+                                </div>
+                                <div class="overflow-hidden">
+                                    <span class="text-[11px] font-bold text-gray-400 uppercase tracking-wider block">Phone Verification</span>
+                                    <span class="inline-flex items-center gap-1.5 mt-0.5 px-2.5 py-0.5 rounded-full text-xs font-semibold"
+                                          th:classappend="${loggedInUser.phoneVerified} ? 'bg-purple-100 text-purple-700' : 'bg-gray-100 text-gray-600'">
+                                        <span th:text="${loggedInUser.phoneVerified} ? 'Verified' : 'Not Verified'">Not Verified</span>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

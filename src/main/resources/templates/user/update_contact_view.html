@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{/utility/common :: parent (~{}, ~{:: .userProfile}, ~{ ::title})} ">
+
+<head>
+  <title th:text="${loggedInUser.name}  + ' add contact' ">Profile</title>
+</head>
+
+<body>
+  <div class="userProfile flex">
+
+    <div th:if="${loggedInUser}" class="block">
+      <div th:replace="~{/user/sidebar :: sidebar } "></div>
+    </div>
+    <!-- ============================================= -->
+
+    <form novalidate th:action="@{'/user/contact/update/'+${id}}" th:object="${contactDetails}" method="post"
+      enctype="multipart/form-data"
+      class="space-y-6 p-8 bg-white border border-gray-200 rounded-lg max-w-4xl mx-auto shadow-sm">
+
+      <div class="border-b border-gray-200 pb-4">
+
+        <div th:replace="~{/utility/messages :: messagebox}"></div>
+
+        <h2 class="text-2xl font-bold text-black">Update Contact</h2>
+        <p class="text-sm text-gray-500"> the details of the contact to your personal manager.</p>
+      </div>
+
+      <!-- 3-Column Grid -->
+      <div class="grid grid-cols-3 gap-6">
+        <!-- Input Fields -->
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-bold text-black uppercase">Name</label>
+          <input type="text" th:field="*{name}"
+            class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:border-blue-600 outline-none transition"
+            required />
+
+          <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-xs text-red-600 py-2 px-1">Name
+            required
+          </p>
+        </div>
+
+
+
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-bold text-black uppercase">Email</label>
+          <input type="email" name="email" th:field="*{email}"
+            class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:border-blue-600 outline-none transition"
+            required />
+          <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-xs text-red-600 py-2 px-1">email
+            required
+          </p>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-bold text-black uppercase">Phone</label>
+          <input th:field="*{phone}" type="text" name="phone"
+            class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:border-blue-600 outline-none transition" />
+          <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="text-xs text-red-600 py-2 px-1">phone
+            required
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-bold text-black uppercase">Address</label>
+          <input th:field="*{address}" type="text" name="address"
+            class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:border-blue-600 outline-none transition" />
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-bold text-black uppercase">Website</label>
+          <input th:field="*{websiteLink}" type="url" name="websiteLink"
+            class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:border-blue-600 outline-none transition" />
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-bold text-black uppercase">LinkedIn</label>
+          <input th:field="*{linkdinLink}" type="url" name="linkdinLink"
+            class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:border-blue-600 outline-none transition" />
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-bold text-black uppercase">X (Twitter)</label>
+          <input th:field="*{xLink}" type="url" name="xLink"
+            class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:border-blue-600 outline-none transition" />
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-bold text-black uppercase">Instagram</label>
+          <input th:field="*{instaLink}" type="url" name="instaLink"
+            class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:border-blue-600 outline-none transition" />
+        </div>
+      </div>
+
+      <!-- File Input (Blue accents) -->
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-bold text-black uppercase">Contact Image</label>
+        <input name ="profileLink" type="file" id="uploaded_image_preview_input"
+          class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 transition cursor-pointer border border-gray-300 rounded" />
+        
+          <p th:if="${#fields.hasErrors('profileLink')}" th:errors="*{profileLink}"
+          class="text-xs text-red-600 py-2 px-1">File error
+        </p>
+
+        <img th:src="${contactDetails.picture}" class="w-20  mx-auto" src="" alt="" id="uploaded_image_preview">
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-bold text-black uppercase">Description</label>
+        <textarea th:field="*{description}" name="description" rows="3"
+          class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:border-blue-600 outline-none transition"></textarea>
+      </div>
+
+      <div class="flex items-center justify-between pt-2">
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input th:field="*{favorite}" type="checkbox" name="favorite" class="w-4 h-4 accent-blue-600">
+          <span class="text-sm font-semibold text-black">Add to Favorites</span>
+        </label>
+
+        <div class="flex gap-3">
+          <button type="reset"
+            class="px-6 py-2 border border-gray-300 text-black rounded hover:bg-gray-100 transition">Reset</button>
+          <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Save
+            Contact</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+</body>
+
+
+</html>

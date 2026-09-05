@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="/utility/common :: parent (~{}, ~{:: .userProfile}, ~{:: title}) ">
+
+<head>
+    <title th:text="${loggedInUser.name} + ' - contacts | SCM' "></title>
+</head>
+
+<body>
+
+    <div class="userProfile flex">
+
+        <div th:if="${loggedInUser}">
+            <div th:replace="~{/user/sidebar :: sidebar }"></div>
+        </div>
+
+        <!-- right side of the screen -->
+        <div class="p-8 w-full h-full bg-white min-h-screen">
+
+            <!-- Header Section -->
+            <div class="max-w-7xl mx-auto flex justify-between items-center border-b border-gray-200 pb-5 mb-6 ">
+                <div>
+                    <h2 class="font-bold text-2xl text-gray-900">All Contact List</h2>
+                    <p class="text-xs font-semibold text-gray-400 mt-0.5 uppercase tracking-wider">Manage your
+                        connections securely 💗</p>
+                    <p class="text-xs font-semibold text-gray-400 mt-0.5 uppercase tracking-wider">Total Contacts:
+                        <span th:text="${pageContactslist.getTotalElements()}"></span>
+                    </p>
+
+
+                    <div th:replace="~{/utility/messages :: messagebox}"></div>
+
+                </div>
+                <!-- Search bar form -->
+                <div class="flex  gap-3">
+                    <form th:action="@{'/user/contact/search'}" class="flex gap-2">
+
+                        <div class="flex gap-2 items-center relative">
+                            <span
+                                class=" absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                                <i class="fa-solid fa-filter text-xs"></i></span>
+                            <select id="countries" name="field"
+                                class="cursor-pointer block px-3 rounded-base pl-9 pr-4 py-1.5 text-sm border border-gray-200 rounded-lg outline-none focus:border-blue-500 w-32 bg-gray-50/50">
+                                <option selected>Sort By</option>
+                                <option value="name">name</option>
+                                <option value="email">email</option>
+                                <option value="phone">phone</option>
+                            </select>
+                        </div>
+
+                        <div class="relative">
+                            <span
+                                class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                                <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                            </span>
+                            <input name="keyword" type="text" placeholder="Search for Users"
+                                class="pl-9 pr-4 py-1.5 text-sm border border-gray-200 rounded-lg outline-none focus:border-blue-500 w-64 bg-gray-50/50">
+
+                            <button type="submit"
+                                class="px-3 py-1.5 bg-gray-800 text-white text-sm font-medium rounded-lg hover:bg-gray-900 transition cursor-pointer">Search</button>
+                        </div>
+                    </form>
+
+                    <div>
+                        <div class="relative inline-block text-left">
+                            <!-- Main Export Dropdown Toggle Button -->
+                            <button type="button" onclick="toggleExportDropdown()"
+                                class="px-3 py-1.5 bg-gray-800 text-white text-sm font-medium rounded-lg hover:bg-gray-900 transition cursor-pointer inline-flex items-center gap-2">
+                                <span>Export</span>
+                                <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </button>
+
+                            <!-- Dropdown Options Menu (Hidden by default) -->
+                            <div id="exportDropdown"
+                                class="hidden absolute right-0 mt-2 w-40 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-20 overflow-hidden">
+                                <div class="py-1" role="menu">
+                                    <!-- Excel Export Option -->
+                                    <button onclick="exportData(); toggleExportDropdown();"
+                                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2.5 transition">
+                                        <i class="fa-solid fa-file-excel text-green-600 text-base"></i>
+                                        <span>Export Excel</span>
+                                    </button>
+
+                                    <!-- PDF Export Option -->
+                                    <button onclick="exportPdf(); toggleExportDropdown();"
+                                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2.5 transition">
+                                        <i class="fa-solid fa-file-pdf text-red-600 text-base"></i>
+                                        <span>Export PDF</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- TABLE CONTAINER -->
+            <div class="max-w-7xl mx-auto overflow-x-auto bg-white border border-gray-100 rounded-xl shadow-sm">
+                <table id="contact-table" class="w-full text-left border-collapse">
+
+                    <!-- Table Headers -->
+                    <thead>
+                        <tr
+                            class="border-b border-gray-200 text-[11px] font-bold text-gray-400 uppercase tracking-wider bg-gray-50/50">
+                            <th class="py-3 px-6">Name</th>
+                            <th class="py-3 px-6">Phone</th>
+                            <th class="py-3 px-6">Links</th>
+                            <th class="py-3 px-6 text-right">Action</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Table Body -->
+                    <tbody class="divide-y divide-gray-100 text-sm">
+                        <tr th:each="c : ${pageContactslist.content}" class="hover:bg-gray-50 transition-colors">
+
+                            <!-- NAME & EMAIL COLUMN -->
+                            <td class="py-4 px-6 flex items-center gap-3">
+                                <img onerror="this.src = 'https://static.vecteezy.com/system/resources/previews/021/548/095/original/default-profile-picture-avatar-user-avatar-icon-person-icon-head-icon-profile-picture-icons-default-anonymous-user-male-and-female-businessman-photo-placeholder-social-network-avatar-portrait-free-vector.jpg'"
+                                    th:src="${c.ProfileLink != null && !c.ProfileLink.isEmpty()} ? ${c.ProfileLink} : @{/assest/scmlogo.png}"
+                                    alt="Profile Image"
+                                    class="w-10 h-10 object-cover rounded-full border border-gray-200 shadow-xs shrink-0">
+                                <div class="overflow-hidden">
+                                    <div class="flex items-center gap-1.5">
+                                        <span class="font-semibold text-gray-900 truncate" th:text="${c.name}">John
+                                            Doe</span>
+                                        <span th:if="${c.favorite}" class="text-amber-500 text-xs"
+                                            title="Favorite">★</span>
+                                    </div>
+                                    <p class="text-xs text-gray-400 truncate" th:text="${c.email}">john.doe@example.com
+                                    </p>
+                                </div>
+                            </td>
+
+                            <!-- PHONE COLUMN -->
+                            <td class="py-4 px-6 text-gray-600 font-medium whitespace-nowrap">
+                                <span class="inline-flex items-center gap-2">
+                                    <i class="fa-solid fa-phone text-gray-400 text-xs"></i>
+                                    <span
+                                        th:text="${c.phone != null && !c.phone.isEmpty()} ? ${c.phone} : 'Not Provided'">+1
+                                        234 567 890</span>
+                                </span>
+                            </td>
+
+                            <!-- LINKS COLUMN -->
+                            <td class="py-4 px-6">
+                                <div class="flex items-center gap-3 text-gray-500 text-base">
+                                    <a th:if="${c.websiteLink != null && !c.websiteLink.isEmpty()}"
+                                        th:href="${c.websiteLink}" target="_blank"
+                                        class="hover:text-blue-600 transition" title="Website"><i
+                                            class="fa-solid fa-globe text-xs"></i></a>
+                                    <a th:if="${c.linkdinLink != null && !c.linkdinLink.isEmpty()}"
+                                        th:href="${c.linkdinLink}" target="_blank"
+                                        class="hover:text-blue-600 transition" title="LinkedIn"><i
+                                            class="fa-brands fa-linkedin text-xs"></i></a>
+                                    <a th:if="${c.xLink != null && !c.xLink.isEmpty()}" th:href="${c.xLink}"
+                                        target="_blank" class="hover:text-blue-600 transition" title="X"><i
+                                            class="fa-brands fa-twitter text-xs"></i></a>
+                                    <a th:if="${c.instaLink != null && !c.instaLink.isEmpty()}" th:href="${c.instaLink}"
+                                        target="_blank" class="hover:text-blue-600 transition" title="Instagram"><i
+                                            class="fa-brands fa-instagram text-xs"></i></a>
+                                </div>
+                            </td>
+
+                            <!-- ACTION BUTTONS COLUMN -->
+                            <td class="py-4 px-6 text-right whitespace-nowrap">
+                                <div class="inline-flex items-center gap-3 text-gray-400">
+                                    <!-- Delete Button -->
+                                    <!-- <a th:href="@{'/user/contact/delete/'+${c.id}}"
+                                        class="hover:text-red-600 transition p-1" title="Delete">
+                                        <i class="fa-solid fa-trash-can text-xs"></i>
+                                    </a> -->
+                                    <button th:onclick="deleteContact([[ ${c.id} ]])"
+                                        class="hover:text-red-600 transition p-1" title="Delete">
+                                        <i class="fa-solid fa-trash-can text-xs"></i>
+                                    </button>
+                                    <!-- Edit Button -->
+                                    <a th:href="@{'/user/contact/view/'+ ${c.id}}"
+                                        class="hover:text-green-600 transition p-1" title="Edit">
+                                        <i class="fa-solid fa-pen text-xs"></i>
+                                    </a>
+                                    <!-- View/Details Modal Trigger Button -->
+                                    <button th:onclick="loadContactModalData([[ ${c.id}]] )"
+                                        class=" hover:text-blue-600 transition p-1 cursor-pointer" title="View">
+                                        <i class="fa-solid fa-eye text-xs"></i>
+                                    </button>
+                                </div>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- =============================================================-->
+                <!-- Pagination Component -->
+                <div class="pagination flex justify-center my-6" th:if="${pageContactslist.getTotalPages() > 0}">
+                    <nav aria-label="Page navigation example">
+                        <ul class="inline-flex -space-x-px text-sm">
+
+                            <!-- Previous Button -->
+                            <li th:unless="${pageContactslist.first}">
+                                <a th:href="@{'/user/contact?size='+${pageSize}+'&page='+${pageContactslist.number-1} }"
+                                    class="flex items-center justify-center text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-900 font-medium rounded-l-lg w-9 h-9 focus:outline-none transition">
+                                    <span class="sr-only">Previous</span>
+                                    <svg class="w-4 h-4 rtl:rotate-180" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                        viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m15 19-7-7 7-7" />
+                                    </svg>
+                                </a>
+                            </li>
+
+                            <!-- Page Numbers Loop with Fixed Active Styling -->
+                            <li th:each="index : ${#numbers.sequence(0, pageContactslist.getTotalPages() - 1)}">
+                                <a th:href="@{'/user/contact?size='+${pageSize}+'&page='+${index} }"
+                                    th:classappend="${index == pageContactslist.number ? 'bg-blue-600 text-white border-blue-600 font-semibold z-10' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100 hover:text-gray-900'}"
+                                    class="cursor-pointer flex items-center justify-center border text-sm w-9 h-9 focus:outline-none transition">
+                                    <span th:text="${index + 1}">1</span>
+                                </a>
+                            </li>
+
+                            <!-- Next Button -->
+                            <li th:unless="${pageContactslist.last}">
+                                <a th:href="@{'/user/contact?size='+${pageSize}+'&page='+${pageContactslist.number+1} }"
+                                    class="flex items-center justify-center text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-900 font-medium rounded-r-lg w-9 h-9 focus:outline-none transition">
+                                    <span class="sr-only">Next</span>
+                                    <svg class="w-4 h-4 rtl:rotate-180" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                        viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m9 5 7 7-7 7" />
+                                    </svg>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+
+            <!-- Contact Details Modal Fragment -->
+            <div th:replace="~{/user/user_contact_details :: contactdetails}"></div>
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

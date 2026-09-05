@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{/utility/common :: parent( ~{}, ~{:: #registerForm} ,~{::title} )}">
+
+<head>
+  <title>SCM - Register</title>
+</head>
+
+<body>
+  <div id="registerForm" class="flex justify-center p-2">
+    <!-- Max-w-sm ko aur tight kiya, padding aur gaps kam kiye -->
+    <div class="w-full max-w-xs border-2  border-gray-800 px-4 py-3 rounded  ">
+
+      <div th:replace="/utility/messages :: messagebox"></div>
+
+      <!-- Title aur header gap kam kiya -->
+      <div class="mb-4 text-center">
+        <h4 class="text-xl font-semibold text-gray-900">Register</h4>
+        <p class="text-xs text-gray-500">Create your account</p>
+      </div>
+
+      <!-- gap-5 se kam karke gap-3 kar diya -->
+      <form th:action="@{'/do-register'}" 
+      th:object="${userForm}" method="post" class="flex flex-col gap-3"
+      novalidate
+      >
+
+        <!-- Input label aur field ki height kam ki -->
+        <div class="flex flex-col gap-0.5">
+          <label class="text-xs font-medium text-gray-700">Name</label>
+          <input th:field="*{name}" type="text" name="name"
+            class="  w-full border border-gray-300 rounded px-2 py-1.5 outline-none focus:border-gray-500 text-sm"
+            required />
+        <p 
+          th:if = "${#fields.hasErrors('name')}"  
+          th:errors ="*{name}"      
+        class="text-xs text-red-600 py-2 px-1">Name required
+      </p>
+        </div>
+
+        <div class="flex flex-col gap-0.5">
+          <label class="text-xs font-medium text-gray-700">Email</label>
+          <input th:field="*{email}" type="email" name="email"
+            class="w-full border border-gray-300 rounded px-2 py-1.5 outline-none focus:border-gray-500 text-sm"
+            required />
+               <p 
+          th:if = "${#fields.hasErrors('email')}"  
+          th:errors ="*{email}"      
+        class="text-xs text-red-600 py-2 px-1">email required
+      </p>
+        </div>
+
+        <div class="flex flex-col gap-0.5">
+          <label class="text-xs font-medium text-gray-700">Mobile</label>
+          <input th:field="*{mobile}" type="text" name="mobile"
+            class="w-full border border-gray-300 rounded px-2 py-1.5 outline-none focus:border-gray-500 text-sm"
+            required />
+               <p 
+          th:if = "${#fields.hasErrors('mobile')}"  
+          th:errors ="*{mobile}"      
+        class="text-red-600 py-2 px-1 text-xs">Mobile number required
+      </p>
+        </div>
+
+        <div class="flex flex-col gap-0.5">
+          <label class="text-xs font-medium text-gray-700">Password</label>
+          <input th:field="*{password}" type="password" name="password"
+            class="w-full border border-gray-300 rounded px-2 py-1.5 outline-none focus:border-gray-500 text-sm"
+            required />
+               <p 
+          th:if = "${#fields.hasErrors('password')}"  
+          th:errors ="*{password}"      
+        class="text-red-600 py-2 px-1 text-xs">Password required
+      </p>
+        </div>
+
+        <div class="flex flex-col gap-0.5">
+          <label class="text-xs font-medium text-gray-700">About</label>
+          <textarea th:field="*{about}" name="about" rows="2"
+            class="w-full border border-gray-300 rounded px-2 py-1.5 outline-none focus:border-gray-500 resize-none text-sm"></textarea>
+
+               <p 
+          th:if = "${#fields.hasErrors('about')}"  
+          th:errors="*{about}"      
+        class="text-red-600 py-2 px-1 text-xs">Please write something about yourself
+      </p>
+        </div>
+
+        <!-- Buttons ki padding kam ki -->
+        <div class="flex gap-2 pt-1">
+          <button type="submit"
+            class="px-4 py-1.5 bg-gray-900 text-white rounded text-sm hover:bg-gray-800 transition">Register</button>
+          <button type="reset"
+            class="px-4 py-1.5 border border-gray-300 rounded text-sm hover:bg-gray-100 transition">Reset</button>
+        </div>
+
+        <div>
+          <p class="text-xs text-gray-400">already have account? <a class="text-blue-500" th:href="@{'/login'}">click
+              here</a> to login
+          </p>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>
